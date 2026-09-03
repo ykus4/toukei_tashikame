@@ -12,7 +12,7 @@ import numpy as np
 def show(label: str, value, shape=True) -> None:
     """形と値を並べて出す。numpy の事故はたいてい形の思い違いから来る。"""
     arr = np.asarray(value)
-    tag = f"{str(arr.shape):>10}" if shape else " " * 10
+    tag = f"{arr.shape!s:>10}" if shape else " " * 10
     text = np.array2string(arr, precision=4, suppress_small=True, max_line_width=60)
     print(f"{label:<34} {tag}  {text}")
 
