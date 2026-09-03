@@ -13,7 +13,7 @@
         return x.mean() - h, x.mean() + h
 
     res = sim.coverage(one_trial, truth=50.0, trials=10_000, seed=0)
-    print(f"{res.rate:.4f} ± {1.96 * res.se:.4f}")   # -> 0.9502 ± 0.0043
+    print(f"{res.rate:.4f} ± {1.96 * res.se:.4f}")   # -> 0.9477 ± 0.0044
 
 試行関数は ``rng`` を受け取る。本書のコードは ``np.random.seed`` を一度も呼ばない。
 グローバルな乱数状態から引くと、並列にした瞬間に結果が変わり、「同じ数字が出る」という
