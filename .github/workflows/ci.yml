@@ -1,0 +1,22 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - run: uv sync --extra dev
+      # 日本語ラベルの図を描くので、CJK フォントが無いと findfont 警告で埋まる。
+      - run: sudo apt-get update && sudo apt-get install -y fonts-noto-cjk
+      - run: uv run pytest -q
+      - run: uv run ruff check src examples tests
+      # 本文の正典は examples なので、毎回全部走らせる。
+      - run: make run-all

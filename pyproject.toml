@@ -1,0 +1,51 @@
+[project]
+name = "toukei-tashikame"
+version = "0.1.0"
+description = "『Pythonで学ぶ！統計学入門』の教材コード — 回して数えて確かめる"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.12"
+authors = [{ name = "草間好輝" }]
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "pandas>=2.1",
+    "matplotlib>=3.8",
+    "seaborn>=0.13",
+    "statsmodels>=0.14",
+    "scikit-learn>=1.4",
+]
+
+[project.optional-dependencies]
+# 第16章と第18-4節の5本だけが要求する。既定に入れると読者の初回セットアップが重くなる。
+slow = ["pymc>=5.10", "arviz>=0.17"]
+dev = ["pytest>=8.0", "ruff>=0.4"]
+
+[project.urls]
+Homepage = "https://github.com/ykus4/toukei_tashikame"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/toukei_tashikame"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "slow: PyMC を要する。`uv sync --extra slow` が必要（第16章ほか）",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+# ルールを明示しておく。既定に任せると ruff の更新で CI だけが赤くなる。
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "C4", "RUF"]
+ignore = [
+    "E501",  # 行長は上の line-length で見る
+    # 日本語の本のコードなので、σ・α・全角括弧は「紛らわしい文字」ではなく正しい表記。
+    "RUF001", "RUF002", "RUF003",
+]

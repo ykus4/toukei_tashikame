@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.DS_Store
+
+# examples が吐く PNG。原稿リポジトリ側の figures/ が正なので、ここでは追跡しない。
+figures/*.png
