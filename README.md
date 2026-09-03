@@ -18,8 +18,8 @@
 git clone https://github.com/ykus4/toukei_tashikame
 cd toukei_tashikame
 uv sync                       # Python 3.12 と依存が入る
-uv run python examples/ch06/coverage_is_about_intervals.py
-# -> 0.9477 ± 0.0044 ± 0.0043
+uv run python examples/ch00/hello_confidence_interval.py
+# -> 0.9477 ± 0.0044
 ```
 
 第16章（MCMC / PyMC）と第18-4節の計5本だけは追加の依存が要る。
@@ -62,7 +62,7 @@ d.p_b        # 0.033 — 合成データだけが知っている真値
 d.b.mean()   # 観測されたCVR。推定の対象であって、答えではない
 ```
 
-**シミュレーション自体の誤差を併記する。** `sim.coverage` と `sim.rejection_rate` は `.se` を返す。`0.9502` と `0.9487` の違いを実装の差だと誤解させないための装置で、10,000回なら 95% 付近で ±0.0043 程度は数え直すだけで動く。
+**シミュレーション自体の誤差を併記する。** `sim.coverage` と `sim.rejection_rate` は `.se` を返す。`0.9477` と `0.9502` の違いを実装の差だと誤解させないための装置で、10,000回なら 95% 付近で ±0.0044 程度は数え直すだけで動く。
 
 **色は役割で決まる。** `plots.PALETTE` を役割名で引く。真値は赤の実線、推定は青、棄却域はオレンジの塗り。呼び出し側で色を選ばない。
 
