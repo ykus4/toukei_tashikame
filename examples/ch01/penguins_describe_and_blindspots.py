@@ -24,11 +24,12 @@ def main() -> None:
     plots.setup()
     pd.set_option("display.width", 200)
 
-    import seaborn as sns
-    raw = sns.load_dataset("penguins")
-    df = datasets.penguins()   # 4列のいずれかが欠けた行を落とす
+    # 同梱の CSV から読む。seaborn.load_dataset は毎回 GitHub を見に行くので、
+    # ネットワークが無い場所では止まる。
+    raw = datasets.penguins(dropna=False)   # 落とす前の 344 行
+    df = datasets.penguins()                # 4列のいずれかが欠けた行を落とす
 
-    print(f"--- 読み込み（seaborn {sns.__version__}）---")
+    print("--- 読み込み（同梱の palmerpenguins）---")
     print(f"  生データ {raw.shape[0]} 行 → 解析対象 {df.shape[0]} 行"
           f"（{raw.shape[0] - df.shape[0]} 行を欠測で除外）")
     na = raw[[*COLS, "sex"]].isna().sum()

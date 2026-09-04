@@ -473,21 +473,32 @@ def datasaurus(which: str = "dino") -> pd.DataFrame:
     return subset.reset_index(drop=True)
 
 
-def penguins() -> pd.DataFrame:
+def penguins(dropna: bool = True) -> pd.DataFrame:
     """Palmer Penguins。欠測の落とし方をここで固定する。
 
-    seaborn 側の既定に任せると、章によって行数が変わって本文の数字と合わなくなる。
-    本書は「解析に使う4列のいずれかが欠けている行を落とす」に固定する。
-    """
-    import seaborn as sns
+    生データは 344 行で、解析に使う4列のいずれかが欠けている行が 2 行ある。それを
+    落として 342 行にする、というところまでを本書の既定とする。seaborn の
+    ``load_dataset`` の既定に任せると章によって行数が変わり、本文の数字と合わなくなる。
 
-    df = sns.load_dataset("penguins")
+    CSV を同梱してあるのは ``anscombe`` と同じ理由で、``seaborn.load_dataset`` は
+    実行のたびに GitHub から取りに行くため。ネットワークが無い場所で読者の手元が
+    止まるし、リポジトリの「データのダウンロードは要らない」という約束も破れる。
+    出典は Horst, Hill & Gorman (2020) palmerpenguins、CC0。
+
+    ``dropna=False`` で落とす前の 344 行を返す。第1章が「欠測をどう扱ったか」を
+    読者に見せるために、落とす前と後の両方を必要とするため。
+    """
+    df = pd.read_csv(_COORDS / "penguins.csv")
+    if not dropna:
+        return df
     cols = ["bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"]
     return df.dropna(subset=cols).reset_index(drop=True)
 
 
 def tips() -> pd.DataFrame:
-    """レストランのチップ。回帰と相関の実データ例。"""
-    import seaborn as sns
+    """レストランのチップ。回帰と相関の実データ例。
 
-    return sns.load_dataset("tips")
+    penguins と同じ理由で CSV を同梱してある（seaborn 経由だと毎回ネットワークを
+    見に行く）。出典は Bryant & Smith (1995) Practical Data Analysis。
+    """
+    return pd.read_csv(_COORDS / "tips.csv")
