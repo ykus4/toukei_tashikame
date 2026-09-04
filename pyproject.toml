@@ -5,7 +5,7 @@ description = "『Pythonで学ぶ！統計学入門』の教材コード — 回
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.12"
-authors = [{ name = "草間好輝" }]
+authors = [{ name = "Kusama Yoshiki" }]
 dependencies = [
     "numpy>=1.26",
     "scipy>=1.11",

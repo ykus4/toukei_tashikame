@@ -156,5 +156,5 @@ make run-all-slow   # PyMC も入れて全部走らせる
 
 MIT。業務でも私用でも自由に使ってください。改変も再配布もかまいません。
 
-- 著者: 草間好輝
+- 著者: Kusama Yoshiki
 - 既刊: 『Pythonで作る暗号資産自動売買ボットの設計・検証・運用』、『Pythonで学ぶ時系列異常検知』（[hazure](https://github.com/ykus4/hazure)）
